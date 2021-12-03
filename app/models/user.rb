@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  has_many :books
+  has_many :readers
+  has_many :borrowings
+
   validates :email, presence: true, uniqueness: true, length: { in: 3...255 },
             format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, length: { in: 6...128 }

@@ -1,4 +1,4 @@
-module TokenHelper
+class TokenService
   HMAC_SECRET = Rails.application.credentials.fetch(:secret_key_base)
   private_constant :HMAC_SECRET
 

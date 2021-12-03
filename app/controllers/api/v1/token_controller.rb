@@ -7,7 +7,7 @@ module Api
         user = User.find_by(email: params.require(:email))
 
         if user&.authenticate(params.require(:password))
-          render json: { token: TokenHelper.encode(sub: user.id) }, status: :created
+          render json: { token: TokenService.encode(sub: user.id) }, status: :created
         else
           render json: { errors: user.errors }, status: :unprocessable_entity
         end

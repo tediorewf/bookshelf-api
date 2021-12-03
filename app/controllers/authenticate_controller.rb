@@ -8,7 +8,7 @@ class AuthenticateController < ApplicationController
 
   def authenticate_user!
     token, _ = token_and_options(request)
-    decoded_token = TokenHelper.decode(token)
+    decoded_token = TokenService.decode(token)
     user_id = decoded_token['sub']
     @current_user = User.find(user_id)
   end
