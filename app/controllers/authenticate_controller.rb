@@ -1,7 +1,8 @@
-class ApiController < ApplicationController
+class AuthenticateController < ApplicationController
   include ActionController::HttpAuthentication::Token
 
-  rescue_from JWT::DecodeError, ActiveRecord::RecordNotFound, with: :authentication_failed
+  rescue_from JWT::DecodeError, ActiveRecord::RecordNotFound,
+              with: :authentication_failed
 
   private
 
