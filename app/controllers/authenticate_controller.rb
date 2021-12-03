@@ -14,7 +14,7 @@ class AuthenticateController < ApplicationController
   end
 
   def authentication_failed(e)
-    render json: { errors: e.message }, status: :bad_request
+    render json: { errors: e.message }, status: :unauthorized
   end
 
   attr_reader :current_user
