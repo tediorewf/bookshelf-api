@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include EmailNormalizer
+
   has_many :books
   has_many :readers
   has_many :borrowings
@@ -10,10 +12,4 @@ class User < ApplicationRecord
   has_secure_password
 
   before_save :normalize_email
-
-  private
-
-  def normalize_email
-    email.downcase!
-  end
 end

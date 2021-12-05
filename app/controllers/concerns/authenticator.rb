@@ -1,12 +1,16 @@
-class AuthenticateController < ApplicationController
+module Authenticator
+  extend ActiveSupport::Concern
   include ActionController::HttpAuthentication::Token
 
-  rescue_from JWT::DecodeError, ActiveRecord::RecordNotFound,
-              with: :authentication_failed
+  included do
+    rescue_from JWT::DecodeError, ActiveRecord::RecordNotFound,
+                with: :authentication_failed
+    before_action :authenticate_user
+  end
 
   private
 
-  def authenticate_user!
+  def authenticate_user
     token, _ = token_and_options(request)
     decoded_token = TokenService.decode(token)
     user_id = decoded_token['sub']
@@ -14,7 +18,7 @@ class AuthenticateController < ApplicationController
   end
 
   def authentication_failed(e)
-    render json: { errors: e.message }, status: :unauthorized
+    render json: { error: e.message }, status: :unauthorized
   end
 
   attr_reader :current_user
