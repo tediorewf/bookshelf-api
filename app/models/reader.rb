@@ -20,8 +20,6 @@ class Reader < ApplicationRecord
   private
 
   def reader_is_not_a_borrower
-    if borrower?
-      errors.add(:book_id, "reader with id=#{id} is borrower")
-    end
+    errors.add(:book_id, "reader with id=#{id} is borrower") if borrower?
   end
 end

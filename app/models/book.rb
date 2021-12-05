@@ -11,8 +11,6 @@ class Book < ApplicationRecord
   private
 
   def book_is_not_borrowed
-    if borrowed?
-      errors.add(:book_id, "book with id=#{id} is borrowed")
-    end
+    errors.add(:book_id, "book with id=#{id} is borrowed") if borrowed?
   end
 end
