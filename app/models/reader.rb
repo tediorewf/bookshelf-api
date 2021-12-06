@@ -22,7 +22,7 @@ class Reader < ApplicationRecord
 
   def ensure_reader_is_not_a_borrower
     if borrower?
-      errors.add(:base, "reader with id=#{id} is borrower")
+      errors.add(:id, "reader with id=#{id} is borrower")
       throw :abort
     end
   end
