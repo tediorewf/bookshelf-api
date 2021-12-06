@@ -4,6 +4,6 @@ class Borrowing < ApplicationRecord
   belongs_to :reader
 
   validate do |borrowing|
-    BorrowingValidator.new(borrowing).validate
+    Validators::BorrowingValidator.new(borrowing).validate
   end
 end

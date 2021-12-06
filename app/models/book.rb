@@ -2,7 +2,8 @@ class Book < ApplicationRecord
   belongs_to :user
 
   validates :author, :title, presence: true, length: { in: 3...255 }
-  validate :book_is_not_borrowed, on: :destroy
+
+  before_destroy :ensure_book_is_not_borrowed, prepend: true
 
   def borrowed?
     user.borrowings.where(book_id: id).exists?
@@ -10,7 +11,10 @@ class Book < ApplicationRecord
 
   private
 
-  def book_is_not_borrowed
-    errors.add(:book_id, "book with id=#{id} is borrowed") if borrowed?
+  def ensure_book_is_not_borrowed
+    if borrowed?
+      errors.add(:book_id, "book with id=#{id} is borrowed")
+      throw :abort
+    end
   end
 end
