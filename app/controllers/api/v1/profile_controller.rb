@@ -4,7 +4,7 @@ module Api
       include Authenticator
 
       def show
-        render json: { email: current_user.email }, status: :ok
+        render json: ProfileRepresenter.new(current_user).as_json, status: :ok
       end
     end
   end
