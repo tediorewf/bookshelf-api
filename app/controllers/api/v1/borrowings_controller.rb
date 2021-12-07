@@ -3,15 +3,13 @@ module Api
     class BorrowingsController < ApiController
       include Authenticator
 
-      def index
-        borrowings = current_user.borrowings
+      before_action :load_resource
 
+      def index
         render json: BorrowingsRepresenter.new(borrowings).as_json, status: :ok
       end
 
       def create
-        borrowing = Borrowing.new(borrowing_params.merge(user: current_user))
-
         if borrowing.save
           render BorrowingRepresenter.new(borrowing).as_json, status: :created
         else
@@ -20,14 +18,10 @@ module Api
       end
 
       def show
-        borrowing = current_user.borrowings.find(params[:id])
-
         render json: BorrowingRepresenter.new(borrowing).as_json, status: :ok
       end
 
       def update
-        borrowing = current_user.borrowings.find(params[:id])
-
         if borrowing.update(borrowing_params)
           render json: BorrowingRepresenter.new(reader).as_json, status: :created
         else
@@ -36,8 +30,6 @@ module Api
       end
 
       def destroy
-        borrowing = current_user.borrowings.find(params[:id])
-
         if borrowing.destroy
           render status: :no_content
         else
@@ -47,9 +39,22 @@ module Api
 
       private
 
+      def load_resource
+        case params[:action].to_sym
+        when :index
+          @borrowings = current_user.borrowings
+        when :create
+          @borrowing = Borrowing.new(borrowing_params.merge(user: current_user))
+        when :show, :update, :destroy
+          @borrowing = current_user.borrowings.find(params[:id])
+        end
+      end
+
       def borrowing_params
         params.permit(:reader_id, :book_id)
       end
+
+      attr_reader :borrowing, :borrowings
     end
   end
 end

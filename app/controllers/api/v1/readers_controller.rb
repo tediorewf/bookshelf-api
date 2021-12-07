@@ -3,15 +3,13 @@ module Api
     class ReadersController < ApiController
       include Authenticator
 
-      def index
-        readers = current_user.readers
+      before_action :load_resource
 
+      def index
         render json: ReadersRepresenter.new(readers).as_json, status: :ok
       end
 
       def create
-        reader = Reader.new(reader_params.merge(user: current_user))
-
         if reader.save
           render json: ReaderRepresenter.new(reader).as_json, status: :created
         else
@@ -20,14 +18,10 @@ module Api
       end
 
       def show
-        reader = current_user.readers.find(params[:id])
-
         render json: ReaderRepresenter.new(reader).as_json, status: :ok
       end
 
       def update
-        reader = current_user.readers.find(params[:id])
-
         if reader.update(reader_params)
           render json: ReaderRepresenter.new(reader).as_json, status: :created
         else
@@ -36,8 +30,6 @@ module Api
       end
 
       def destroy
-        reader = current_user.readers.find(params[:id])
-
         if reader.destroy
           render status: :no_content
         else
@@ -47,9 +39,22 @@ module Api
 
       private
 
+      def load_resource
+        case params[:action].to_sym
+        when :index
+          @readers = current_user.readers
+        when :create
+          @reader = Reader.new(reader_params.merge(user: current_user))
+        when :show, :update, :destroy
+          @reader = current_user.readers.find(params[:id])
+        end
+      end
+
       def reader_params
         params.permit(:first_name, :last_name, :phone, :email)
       end
+
+      attr_reader :reader, :readers
     end
   end
 end
