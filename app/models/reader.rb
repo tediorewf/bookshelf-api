@@ -5,7 +5,7 @@ class Reader < ApplicationRecord
 
   belongs_to :user
 
-  validates :first_name, :last_name, presence: true, length: { in: 3...255 }
+  validates :first_name, :last_name, presence: true, length: { maximum: 30 }
   validates :phone, presence: true, numericality: true, length: { in: 10..15 }
   validates :email, presence: true, uniqueness: true, length: { maximum: 255 },
             format: { with: URI::MailTo::EMAIL_REGEXP }
