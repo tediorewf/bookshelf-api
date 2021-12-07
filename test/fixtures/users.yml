@@ -1,7 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  email: MyString
+  id: <%= user_one_id %>
+  email: <%= user_one_email %>
+  password_digest: <%= password_digest(user_one_password) %>
 
 two:
-  email: MyString
+  id: <%= user_two_id %>
+  email: <%= user_two_email %>
+  password_digest: <%= password_digest(user_two_password) %>
