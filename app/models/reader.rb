@@ -7,7 +7,7 @@ class Reader < ApplicationRecord
 
   validates :first_name, :last_name, presence: true, length: { in: 3...255 }
   validates :phone, presence: true, numericality: true, length: { in: 10..15 }
-  validates :email, presence: true, uniqueness: true, length: { in: 3...255 },
+  validates :email, presence: true, uniqueness: true, length: { maximum: 255 },
             format: { with: URI::MailTo::EMAIL_REGEXP }
 
   before_save :capitalize_first_name, :capitalize_last_name, :normalize_email
