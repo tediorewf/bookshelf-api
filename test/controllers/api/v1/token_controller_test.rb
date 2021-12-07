@@ -12,7 +12,7 @@ class Api::V1::TokenControllerTest < ActionDispatch::IntegrationTest
       password: password
     }
 
-    post api_v1_token_url params: params
+    post api_v1_token_path params: params
 
     assert_response :created
     assert_not_nil response.body[TOKEN_PROPERTY_NAME]
@@ -26,7 +26,7 @@ class Api::V1::TokenControllerTest < ActionDispatch::IntegrationTest
       password: password
     }
 
-    post api_v1_token_url params: params
+    post api_v1_token_path params: params
 
     assert_response :bad_request
     assert_nil response.body[TOKEN_PROPERTY_NAME]

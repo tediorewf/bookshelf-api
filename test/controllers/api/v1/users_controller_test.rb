@@ -11,7 +11,7 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
       password_confirmation: password_confirmation
     }
 
-    post api_v1_users_url, params: params
+    post api_v1_users_path, params: params
 
     assert_response :created
     assert_not_nil User.find_by_email(email)
@@ -26,7 +26,7 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     }
     user_before_request = User.find_by_email(email)
 
-    post api_v1_users_url, params: params
+    post api_v1_users_path, params: params
 
     user_after_response = User.find_by_email(email)
     assert_response :unprocessable_entity
@@ -36,7 +36,7 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   test "should not create user if empty params were sent" do
     params = {}
 
-    post api_v1_users_url, params: params
+    post api_v1_users_path, params: params
 
     assert_response :unprocessable_entity
   end
@@ -51,7 +51,7 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
       password_confirmation: password_confirmation
     }
 
-    post api_v1_users_url, params: params
+    post api_v1_users_path, params: params
 
     assert_response :unprocessable_entity
     assert_nil User.find_by_email(email)
@@ -67,7 +67,7 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
       password_confirmation: password_confirmation
     }
 
-    post api_v1_users_url, params: params
+    post api_v1_users_path, params: params
 
     assert_response :unprocessable_entity
     assert_nil User.find_by_email(email)
@@ -83,7 +83,7 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
       password_confirmation: password_confirmation
     }
 
-    post api_v1_users_url, params: params
+    post api_v1_users_path, params: params
 
     assert_response :unprocessable_entity
     assert_nil User.find_by_email(email)
@@ -97,7 +97,7 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
       password: password
     }
 
-    post api_v1_users_url, params: params
+    post api_v1_users_path, params: params
 
     assert_response :unprocessable_entity
     assert_nil User.find_by_email(email)
