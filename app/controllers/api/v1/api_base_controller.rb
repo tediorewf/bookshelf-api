@@ -19,6 +19,10 @@ module Api
         unauthorized!
       end
 
+      rescue_from UnauthenticatedError do
+        unauthenticated!
+      end
+
       protected
 
       def authenticate_user!
