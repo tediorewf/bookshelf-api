@@ -35,9 +35,11 @@ module Api
       end
 
       def destroy
-        borrowing.destroy!
-
-        render status: :no_content
+        if borrowing.destroy
+          render status: :no_content
+        else
+          bad_request!(borrowing.errors)
+        end
       end
 
       private

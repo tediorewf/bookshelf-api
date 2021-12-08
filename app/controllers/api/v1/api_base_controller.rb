@@ -101,6 +101,10 @@ module Api
         api_error(status: 422, errors: errors)
       end
 
+      def bad_request!(errors = [])
+        api_error(status: 400, errors: errors)
+      end
+
       def api_error(status: 500, errors: [])
         render json: ErrorSerializer.new(status, errors).as_json,
                status: status

@@ -35,9 +35,11 @@ module Api
       end
 
       def destroy
-        reader.destroy!
-
-        render status: :no_content
+        if reader.destroy
+          render status: :no_content
+        else
+          bad_request!(reader.errors)
+        end
       end
 
       private
