@@ -10,7 +10,7 @@ module Api
 
       def create
         if borrowing.save
-          render jsonapi: book,
+          render jsonapi: borrowing,
                  serializer: Api::V1::BorrowingSerializer,
                  status: :created
         else
@@ -19,14 +19,14 @@ module Api
       end
 
       def show
-        render jsonapi: book,
+        render jsonapi: borrowing,
                serializer: Api::V1::BorrowingSerializer,
                status: :ok
       end
 
       def update
         if borrowing.update(update_borrowing_params)
-          render jsonapi: book,
+          render jsonapi: borrowing,
                  serializer: Api::V1::BorrowingSerializer,
                  status: :created
         else

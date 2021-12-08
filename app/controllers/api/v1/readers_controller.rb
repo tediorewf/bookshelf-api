@@ -10,7 +10,7 @@ module Api
 
       def create
         if reader.save
-          render jsonapi: book,
+          render jsonapi: reader,
                  serializer: Api::V1::ReaderSerializer,
                  status: :created
         else
@@ -19,14 +19,14 @@ module Api
       end
 
       def show
-        render jsonapi: book,
+        render jsonapi: reader,
                serializer: Api::V1::ReaderSerializer,
                status: :ok
       end
 
       def update
         if reader.update(update_reader_params)
-          render jsonapi: book,
+          render jsonapi: reader,
                  serializer: Api::V1::ReaderSerializer,
                  status: :created
         else
