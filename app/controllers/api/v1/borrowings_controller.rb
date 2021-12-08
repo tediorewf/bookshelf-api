@@ -14,7 +14,7 @@ module Api
                  serializer: Api::V1::BorrowingSerializer,
                  status: :created
         else
-          invalid_resource!(borrowing.errors)
+          unprocessable_entity!(borrowing.errors)
         end
       end
 
@@ -30,7 +30,7 @@ module Api
                  serializer: Api::V1::BorrowingSerializer,
                  status: :created
         else
-          invalid_resource!(borrowing.errors)
+          unprocessable_entity!(borrowing.errors)
         end
       end
 

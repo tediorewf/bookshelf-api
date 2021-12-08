@@ -9,7 +9,7 @@ module Api
                  serializer: Api::V1::TokenSerializer,
                  status: :created
         else
-          invalid_resource!('User with provided credentials does not exist')
+          unprocessable_entity!('User with provided credentials does not exist')
         end
       end
 

@@ -9,7 +9,7 @@ module Api
                  serializer: Api::V1::UserSerializer,
                  status: :created
         else
-          invalid_resource!(user.errors)
+          unprocessable_entity!(user.errors)
         end
       end
 

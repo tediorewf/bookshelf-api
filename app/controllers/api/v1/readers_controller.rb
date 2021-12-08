@@ -14,7 +14,7 @@ module Api
                  serializer: Api::V1::ReaderSerializer,
                  status: :created
         else
-          invalid_resource!(reader.errors)
+          unprocessable_entity!(reader.errors)
         end
       end
 
@@ -30,7 +30,7 @@ module Api
                  serializer: Api::V1::ReaderSerializer,
                  status: :created
         else
-          invalid_resource!(reader.errors)
+          unprocessable_entity!(reader.errors)
         end
       end
 

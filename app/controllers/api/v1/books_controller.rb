@@ -14,7 +14,7 @@ module Api
                  serializer: Api::V1::BookSerializer,
                  status: :created
         else
-          invalid_resource!(book.errors)
+          unprocessable_entity!(book.errors)
         end
       end
 
@@ -30,7 +30,7 @@ module Api
                  serializer: Api::V1::BookSerializer,
                  status: :created
         else
-          invalid_resource!(book.errors)
+          unprocessable_entity!(book.errors)
         end
       end
 

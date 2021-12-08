@@ -97,7 +97,7 @@ module Api
         api_error(status: 404, errors: 'Resource not found')
       end
 
-      def invalid_resource!(errors = [])
+      def unprocessable_entity!(errors = [])
         api_error(status: 422, errors: errors)
       end
 
