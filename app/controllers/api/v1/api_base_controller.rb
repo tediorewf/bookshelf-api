@@ -1,6 +1,7 @@
 module Api
   module V1
     class ApiBaseController < ApplicationController
+      include ActionController::HttpAuthentication::Token
       include Pundit
       include CustomErrors
 
@@ -36,9 +37,7 @@ module Api
       end
 
       def authenticate_user
-        token, _ = ActionController::HttpAuthentication::Token.token_and_options(
-          request
-        )
+        token, _ = token_and_options(request)
         return nil unless token
 
         decoded_token = TokenService.decode(token)
