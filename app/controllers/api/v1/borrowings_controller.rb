@@ -2,26 +2,35 @@ module Api
   module V1
     class BorrowingsController < ApiBaseController
       def index
-        render json: BorrowingsSerializer.new(borrowings).as_json, status: :ok
+        render jsonapi: borrowings,
+               each_serializer: Api::V1::BorrowingSerializer,
+               meta: meta_attributes(borrowings),
+               status: :ok
       end
 
       def create
         if borrowing.save
-          render BorrowingSerializer.new(borrowing).as_json, status: :created
+          render jsonapi: book,
+                 serializer: Api::V1::BorrowingSerializer,
+                 status: :created
         else
-          render json: { errors: borrowing.errors }, status: :unprocessable_entity
+          invalid_resource!(borrowing.errors)
         end
       end
 
       def show
-        render json: BorrowingSerializer.new(borrowing).as_json, status: :ok
+        render jsonapi: book,
+               serializer: Api::V1::BorrowingSerializer,
+               status: :ok
       end
 
       def update
         if borrowing.update(update_borrowing_params)
-          render json: BorrowingSerializer.new(reader).as_json, status: :created
+          render jsonapi: book,
+                 serializer: Api::V1::BorrowingSerializer,
+                 status: :created
         else
-          render json: { errors: borrowing.errors }, status: :unprocessable_entity
+          invalid_resource!(borrowing.errors)
         end
       end
 
@@ -48,7 +57,7 @@ module Api
       def load_resource
         case params[:action].to_sym
         when :index
-          @borrowings = current_user.borrowings
+          @borrowings = paginate(current_user.borrowings)
         when :create
           @borrowing = Borrowing.new(create_borrowing_params.merge(user: current_user))
         when :show, :update, :destroy

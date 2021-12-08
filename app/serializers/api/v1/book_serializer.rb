@@ -1,21 +1,9 @@
 module Api
   module V1
-    class BookSerializer
-      def initialize(book)
-        @book = book
-      end
+    class BookSerializer < Api::V1::ApiBaseSerializer
+      type :book
 
-      def as_json
-        {
-          id: book.id,
-          author: book.author,
-          title: book.title
-        }
-      end
-
-      private
-
-      attr_reader :book
+      attributes :author, :title
     end
   end
 end

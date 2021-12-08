@@ -1,19 +1,9 @@
 module Api
   module V1
-    class ProfileSerializer
-      def initialize(profile)
-        @profile = profile
-      end
+    class ProfileSerializer < Api::V1::ApiBaseSerializer
+      type :profile
 
-      def as_json
-        {
-          email: profile.email
-        }
-      end
-
-      private
-
-      attr_reader :profile
+      attributes :email
     end
   end
 end

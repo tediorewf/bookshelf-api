@@ -2,24 +2,33 @@ module Api
   module V1
     class ReadersController < ApiBaseController
       def index
-        render json: ReadersSerializer.new(readers).as_json, status: :ok
+        render jsonapi: readers,
+               each_serializer: Api::V1::ReaderSerializer,
+               meta: meta_attributes(readers),
+               status: :ok
       end
 
       def create
         if reader.save
-          render json: ReaderSerializer.new(reader).as_json, status: :created
+          render jsonapi: book,
+                 serializer: Api::V1::ReaderSerializer,
+                 status: :created
         else
           invalid_resource!(reader.errors)
         end
       end
 
       def show
-        render json: ReaderSerializer.new(reader).as_json, status: :ok
+        render jsonapi: book,
+               serializer: Api::V1::ReaderSerializer,
+               status: :ok
       end
 
       def update
         if reader.update(update_reader_params)
-          render json: ReaderSerializer.new(reader).as_json, status: :created
+          render jsonapi: book,
+                 serializer: Api::V1::ReaderSerializer,
+                 status: :created
         else
           invalid_resource!(reader.errors)
         end
@@ -48,7 +57,7 @@ module Api
       def load_resource
         case params[:action].to_sym
         when :index
-          @readers = current_user.readers
+          @readers = paginate(current_user.readers)
         when :create
           @reader = Reader.new(create_reader_params.merge(user: current_user))
         when :show, :update, :destroy

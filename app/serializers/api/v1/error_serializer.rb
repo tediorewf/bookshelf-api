@@ -2,7 +2,10 @@ module Api
   module V1
     class ErrorSerializer
       UNKNOWN_ERROR = 'Something went wrong'.freeze
+      private_constant :UNKNOWN_ERROR
+
       DEFAULT_POINTER = 'data'.freeze
+      private_constant :DEFAULT_POINTER
 
       def initialize(status, errors)
         @status = status

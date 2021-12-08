@@ -5,7 +5,9 @@ module Api
 
       def create
         if user.authenticate(params.require(:password))
-          render json: { token: TokenService.encode(sub: user.id) }, status: :created
+          render jsonapi: user,
+                 serializer: Api::V1::TokenSerializer,
+                 status: :created
         else
           invalid_resource!('User with provided credentials does not exist')
         end

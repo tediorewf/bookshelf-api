@@ -2,7 +2,9 @@ module Api
   module V1
     class ProfileController < ApiBaseController
       def show
-        render json: ProfileSerializer.new(profile).as_json, status: :ok
+        render jsonapi: profile,
+               serializer: Api::V1::ProfileSerializer,
+               status: :ok
       end
 
       private

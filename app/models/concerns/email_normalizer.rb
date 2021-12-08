@@ -1,9 +1,9 @@
 module EmailNormalizer
   extend ActiveSupport::Concern
 
-  private
+  protected
 
   def normalize_email
-    email.downcase!
+    self.email = email.downcase
   end
 end

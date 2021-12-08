@@ -1,23 +1,9 @@
 module Api
   module V1
-    class ReaderSerializer
-      def initialize(reader)
-        @reader = reader
-      end
+    class ReaderSerializer < Api::V1::ApiBaseSerializer
+      type :reader
 
-      def as_json
-        {
-          id: reader.id,
-          first_name: reader.first_name,
-          last_name: reader.last_name,
-          phone: reader.phone,
-          email: reader.email
-        }
-      end
-
-      private
-
-      attr_reader :reader
+      attributes :email, :first_name, :last_name, :phone
     end
   end
 end

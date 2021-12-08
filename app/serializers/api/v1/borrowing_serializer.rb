@@ -1,29 +1,17 @@
 module Api
   module V1
-    class BorrowingSerializer
-      def initialize(borrowing)
-        @borrowing = borrowing
+    class BorrowingSerializer < Api::V1::ApiBaseSerializer
+      type :borrowing
+
+      attributes :book, :reader
+
+      def book
+        Api::V1::BookSerializer.new(object.book)
       end
 
-      def as_json
-        {
-          id: borrowing.id,
-          reader: reader_name,
-          book: book_name
-        }
+      def reader
+        Api::V1::ReaderSerializer.new(object.reader)
       end
-
-      private
-
-      def reader_name
-        "#{borrowing.reader.first_name} #{borrowing.reader.last_name}"
-      end
-
-      def book_name
-        "#{borrowing.book.title}, #{borrowing.book.author}"
-      end
-
-      attr_reader :borrowing
     end
   end
 end

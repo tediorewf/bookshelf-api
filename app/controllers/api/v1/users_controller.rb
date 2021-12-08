@@ -5,7 +5,9 @@ module Api
 
       def create
         if user.save
-          render json: UserSerializer.new(user).as_json, status: :created
+          render jsonapi: user,
+                 serializer: Api::V1::UserSerializer,
+                 status: :created
         else
           invalid_resource!(user.errors)
         end

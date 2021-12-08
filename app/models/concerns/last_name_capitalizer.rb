@@ -1,9 +1,9 @@
 module LastNameCapitalizer
   extend ActiveSupport::Concern
 
-  private
+  protected
 
   def capitalize_last_name
-    last_name.capitalize!
+    self.last_name = last_name.capitalize
   end
 end
