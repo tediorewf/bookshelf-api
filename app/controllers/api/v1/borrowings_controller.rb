@@ -61,7 +61,7 @@ module Api
         when :index
           @borrowings = paginate(current_user.borrowings)
         when :create
-          @borrowing = Borrowing.new(create_borrowing_params.merge(user: current_user))
+          @borrowing = current_user.borrowings.new(create_borrowing_params)
         when :show, :update, :destroy
           @borrowing = current_user.borrowings.find(params[:id])
         end

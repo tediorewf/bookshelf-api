@@ -61,7 +61,7 @@ module Api
         when :index
           @books = paginate(current_user.books)
         when :create
-          @book = Book.new(create_book_params.merge(user: current_user))
+          @book = current_user.books.new(create_book_params)
         when :show, :update, :destroy
           @book = current_user.books.find(params[:id])
         end

@@ -61,7 +61,7 @@ module Api
         when :index
           @readers = paginate(current_user.readers)
         when :create
-          @reader = Reader.new(create_reader_params.merge(user: current_user))
+          @reader = current_user.readers.new(create_reader_params)
         when :show, :update, :destroy
           @reader = current_user.readers.find(params[:id])
         end
