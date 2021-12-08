@@ -1,57 +1,59 @@
 module Api
   module V1
-    class ReadersController < ApiController
-      include Authenticator
-
-      before_action :load_resource
-
+    class ReadersController < ApiBaseController
       def index
-        render json: ReadersRepresenter.new(readers).as_json, status: :ok
+        render json: ReadersSerializer.new(readers).as_json, status: :ok
       end
 
       def create
         if reader.save
-          render json: ReaderRepresenter.new(reader).as_json, status: :created
+          render json: ReaderSerializer.new(reader).as_json, status: :created
         else
-          render json: { errors: reader.errors }, status: :unprocessable_entity
+          invalid_resource!(reader.errors)
         end
       end
 
       def show
-        render json: ReaderRepresenter.new(reader).as_json, status: :ok
+        render json: ReaderSerializer.new(reader).as_json, status: :ok
       end
 
       def update
-        if reader.update(reader_params)
-          render json: ReaderRepresenter.new(reader).as_json, status: :created
+        if reader.update(update_reader_params)
+          render json: ReaderSerializer.new(reader).as_json, status: :created
         else
-          render json: { errors: reader.errors }, status: :unprocessable_entity
+          invalid_resource!(reader.errors)
         end
       end
 
       def destroy
-        if reader.destroy
-          render status: :no_content
-        else
-          render json: { errors: reader.errors }, status: :bad_request
-        end
+        reader.destroy!
+
+        render status: :no_content
       end
 
       private
+
+      def default_reader_filters
+        %i(email first_name last_name phone)
+      end
+
+      def create_reader_params
+        params.require(:reader).permit(*default_reader_filters)
+      end
+
+      def update_reader_params
+        create_reader_params
+      end
 
       def load_resource
         case params[:action].to_sym
         when :index
           @readers = current_user.readers
         when :create
-          @reader = Reader.new(reader_params.merge(user: current_user))
+          @reader = Reader.new(create_reader_params.merge(user: current_user))
         when :show, :update, :destroy
           @reader = current_user.readers.find(params[:id])
         end
-      end
-
-      def reader_params
-        params.permit(:first_name, :last_name, :phone, :email)
       end
 
       attr_reader :reader, :readers
