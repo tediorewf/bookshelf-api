@@ -74,10 +74,10 @@ module Api
       def paginate(resource)
         resource.paginate(
           page: params.fetch(:page, DEFAULT_PAGE),
-          per_page: min(
+          per_page: [
             params.fetch(:per_page, DEFAULT_PER_PAGE),
             DEFAULT_PER_PAGE
-          )
+          ].min
         )
       end
 
