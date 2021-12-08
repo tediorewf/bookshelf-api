@@ -4,7 +4,9 @@ class TokenService
 
   class << self
     def encode(payload)
-      try(:encode!, payload)
+      encode!(payload)
+    rescue  # because it has "BANG!" version
+      nil
     end
 
     def encode!(payload)
@@ -12,7 +14,9 @@ class TokenService
     end
 
     def decode(token)
-      try(:decode!, token)
+      decode!(token)
+    rescue  # because it has "BANG!" version
+      nil
     end
 
     def decode!(token)
