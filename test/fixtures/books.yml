@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  author: MyString
-  title: MyString
-  user: one
+  id: <%=  book_one_id %>
+  author: <%= book_one_author %>
+  title: <%= book_one_title %>
+  user_id: <%= user_one_id %>
 
 two:
-  author: MyString
-  title: MyString
-  user: two
+  id: <%= book_two_id %>
+  author: <%= book_two_author %>
+  title: <%= book_two_title %>
+  user_id: <%= user_two_id %>
