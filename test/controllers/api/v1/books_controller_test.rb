@@ -25,7 +25,7 @@ class Api::V1::BooksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "unauthorized user unable to get a book" do
-    get api_v1_book_url(@book_one)
+    get api_v1_book_path(@book_one)
 
     assert_response :unauthorized
   end
