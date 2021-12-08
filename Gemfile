@@ -28,8 +28,11 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
 gem 'jwt'
 
-# User Pundit to build a simple, robust and scalable authorization system.
-gem "pundit"
+# Use Pundit to build a simple, robust and scalable authorization system.
+gem 'pundit'
+
+# Pagination library
+gem 'will_paginate'
 
 # Allows to generate JSON in an object-oriented and convention-driven manner.
 gem 'active_model_serializers'
