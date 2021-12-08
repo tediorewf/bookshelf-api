@@ -82,6 +82,7 @@ module Api
 
       private
 
+      # HACK
       def load_resource; end
 
       attr_reader :current_user
