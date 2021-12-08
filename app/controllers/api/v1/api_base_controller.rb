@@ -4,6 +4,12 @@ module Api
       include Pundit
       include CustomErrors
 
+      DEFAULT_PAGE = 1.freeze
+      private_constant :DEFAULT_PAGE
+
+      DEFAULT_PER_PAGE = Rails.application.credentials.fetch(:default_per_page, 25).freeze
+      private_constant :DEFAULT_PER_PAGE
+
       before_action :authenticate_user!
       before_action :load_resource
 
@@ -63,6 +69,27 @@ module Api
         end
 
         api_error(status: 401, errors: 'Not Authenticated')
+      end
+
+      def paginate(resource)
+        resource.paginate(
+          page: params.fetch(:page, DEFAULT_PAGE),
+          per_page: min(
+            params.fetch(:per_page, DEFAULT_PER_PAGE),
+            DEFAULT_PER_PAGE
+          )
+        )
+      end
+
+      # ATTENTION: expects paginated resource!
+      def meta_attributes(resource, extra_meta = {})
+        {
+          current_page: resource.current_page,
+          next_page: resource.next_page,
+          prev_page: resource.previous_page,
+          total_pages: resource.total_pages,
+          total_count: resource.total_entries
+        }.merge(extra_meta)
       end
 
       def not_found!
