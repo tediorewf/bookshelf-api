@@ -6,9 +6,11 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     password = "password"
     password_confirmation = "password"
     params = {
-      email: email,
-      password: password,
-      password_confirmation: password_confirmation
+      user: {
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation
+      }
     }
 
     post api_v1_users_path, params: params
@@ -20,9 +22,13 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   test "should not create user which already exists" do
     email = user_one_email
     password = user_one_password
+    password_confirmation = user_one_password
     params = {
-      email: email,
-      password: password
+      user: {
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation
+      }
     }
     user_before_request = User.find_by_email(email)
 
@@ -38,7 +44,7 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
 
     post api_v1_users_path, params: params
 
-    assert_response :unprocessable_entity
+    assert_response :bad_request
   end
 
   test "should not create user if params were contained invalid format email" do
@@ -46,9 +52,11 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     password = "password"
     password_confirmation = "password"
     params = {
-      email: email,
-      password: password,
-      password_confirmation: password_confirmation
+      user: {
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation
+      }
     }
 
     post api_v1_users_path, params: params
@@ -62,9 +70,11 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     password = "very-long-password"*100
     password_confirmation = "very-long-password"*100
     params = {
-      email: email,
-      password: password,
-      password_confirmation: password_confirmation
+      user: {
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation
+      }
     }
 
     post api_v1_users_path, params: params
@@ -78,9 +88,11 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     password = "password"
     password_confirmation = "password"
     params = {
-      email: email,
-      password: password,
-      password_confirmation: password_confirmation
+      user: {
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation
+      }
     }
 
     post api_v1_users_path, params: params
@@ -93,8 +105,10 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
     email = "test@test.test"
     password = "password"
     params = {
-      email: email,
-      password: password
+      user: {
+        email: email,
+        password: password
+      }
     }
 
     post api_v1_users_path, params: params
