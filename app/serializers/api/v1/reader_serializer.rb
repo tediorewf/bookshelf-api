@@ -1,6 +1,6 @@
 module Api
   module V1
-    class ReaderRepresenter
+    class ReaderSerializer
       def initialize(reader)
         @reader = reader
       end

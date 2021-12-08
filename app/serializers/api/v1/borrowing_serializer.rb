@@ -1,6 +1,6 @@
 module Api
   module V1
-    class BorrowingRepresenter
+    class BorrowingSerializer
       def initialize(borrowing)
         @borrowing = borrowing
       end

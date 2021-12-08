@@ -1,6 +1,6 @@
 module Api
   module V1
-    class ProfileRepresenter
+    class ProfileSerializer
       def initialize(profile)
         @profile = profile
       end

@@ -1,13 +1,13 @@
 module Api
   module V1
-    class ReadersRepresenter
+    class ReadersSerializer
       def initialize(readers)
         @readers = readers
       end
 
       def as_json
         readers.map do |reader|
-          ReaderRepresenter.new(reader).as_json
+          ReaderSerializer.new(reader).as_json
         end
       end
 

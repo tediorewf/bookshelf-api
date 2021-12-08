@@ -1,6 +1,6 @@
 module Api
   module V1
-    class BookRepresenter
+    class BookSerializer
       def initialize(book)
         @book = book
       end

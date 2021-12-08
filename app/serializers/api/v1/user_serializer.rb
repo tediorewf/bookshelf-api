@@ -1,6 +1,6 @@
 module Api
   module V1
-    class UserRepresenter
+    class UserSerializer
       def initialize(user)
         @user = user
       end
