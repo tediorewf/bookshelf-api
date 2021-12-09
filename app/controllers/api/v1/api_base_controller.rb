@@ -2,7 +2,6 @@ module Api
   module V1
     class ApiBaseController < ApplicationController
       include ActionController::HttpAuthentication::Token
-      include Pundit
       include CustomErrors
 
       DEFAULT_PAGE = 1.freeze
@@ -20,10 +19,6 @@ module Api
 
       rescue_from ActiveRecord::RecordNotFound do
         api_error(status: 404, errors: 'Resource not found')
-      end
-
-      rescue_from Pundit::NotAuthorizedError do
-        unauthorized!
       end
 
       rescue_from UnauthenticatedError do
@@ -52,14 +47,6 @@ module Api
         else
           nil
         end
-      end
-
-      def unauthorized!
-        unless Rails.env.production? || Rails.env.test?
-          Rails.logger.warn { "unauthorized for: #{current_user.try(:id)}" }
-        end
-
-        api_error(status: 403, errors: 'Not Authorized')
       end
 
       def unauthenticated!
