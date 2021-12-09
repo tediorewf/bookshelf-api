@@ -34,6 +34,9 @@ gem 'will_paginate'
 # Allows to generate JSON in an object-oriented and convention-driven manner
 gem 'active_model_serializers'
 
+# Allows to normalize data before saving it to the database
+gem 'normalize_attributes'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
