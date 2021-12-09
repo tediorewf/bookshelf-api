@@ -41,7 +41,7 @@ module Api
         user_id = decoded_token['sub']
         return nil unless user_id
 
-        user = User.find_by_id(user_id)
+        user = User.find_by(id: user_id)
         if user
           @current_user = user
         else

@@ -4,7 +4,7 @@ module Api
       skip_before_action :authenticate_user!, only: :create
 
       def create
-        if user.authenticate(create_token_params[:password])
+        if user&.authenticate(create_token_params[:password])
           render jsonapi: user,
                  serializer: Api::V1::TokenSerializer,
                  status: :created
@@ -18,7 +18,7 @@ module Api
       def load_resource
         case params[:action].to_sym
         when :create
-          @user = User.find_by_email!(create_token_params[:email])
+          @user = User.find_by(email: create_token_params[:email])
         end
       end
 
