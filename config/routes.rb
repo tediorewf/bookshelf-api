@@ -8,8 +8,6 @@ Rails.application.routes.draw do
 
       resources :borrowings, except: %i(edit new)
 
-      get :profile, controller: :profile, action: :show
-
       post :token, controller: :token, action: :create
 
       post :users, controller: :users, action: :create
