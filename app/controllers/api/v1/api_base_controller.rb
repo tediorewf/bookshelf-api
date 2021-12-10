@@ -82,7 +82,7 @@ module Api
       end
 
       def not_found!
-        api_error(status: 404, errors: "Resource not found")
+        api_error(status: 404, errors: 'Resource not found')
       end
 
       def unprocessable_entity!(errors = [])
