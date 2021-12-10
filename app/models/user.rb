@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  include EmailNormalizer
-
   has_many :books
   has_many :readers
   has_many :borrowings
@@ -11,7 +9,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
-  has_secure_password
+  normalize :email, with: :downcase
 
-  before_save :normalize_email
+  has_secure_password
 end

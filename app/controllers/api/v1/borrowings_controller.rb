@@ -1,6 +1,6 @@
 module Api
   module V1
-    class BorrowingsController < ApiBaseController
+    class BorrowingsController < Api::V1::ApiBaseController
       def index
         render jsonapi: borrowings,
                each_serializer: Api::V1::BorrowingSerializer,
@@ -42,19 +42,7 @@ module Api
         end
       end
 
-      private
-
-      def default_borrowing_filters
-        %i(book_id reader_id)
-      end
-
-      def create_borrowing_params
-        params.require(:borrowing).permit(*default_borrowing_filters)
-      end
-
-      def update_borrowing_params
-        create_borrowing_params
-      end
+      protected
 
       def load_resource
         case params[:action].to_sym
@@ -65,6 +53,20 @@ module Api
         when :show, :update, :destroy
           @borrowing = current_user.borrowings.find(params[:id])
         end
+      end
+
+      private
+
+      def update_borrowing_params
+        create_borrowing_params
+      end
+
+      def create_borrowing_params
+        params.require(:borrowing).permit(*default_borrowing_filters)
+      end
+
+      def default_borrowing_filters
+        %i(book_id reader_id)
       end
 
       attr_reader :borrowing, :borrowings

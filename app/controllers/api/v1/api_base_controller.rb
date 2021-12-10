@@ -49,13 +49,8 @@ module Api
         end
       end
 
-      def unauthenticated!
-        unless Rails.env.production? || Rails.env.test?
-          Rails.logger.warn { 'Unauthenticated user has not got access to resource' }
-        end
-
-        api_error(status: 401, errors: 'Not Authenticated')
-      end
+      # HACK
+      def load_resource; end
 
       def paginate(resource)
         resource.paginate(
@@ -78,29 +73,26 @@ module Api
         }.merge(extra_meta)
       end
 
-      def not_found!
-        Rails.logger.warn { "not_found for: #{current_user.try(:id)}" }
+      def bad_request!(errors = [])
+        api_error(status: 400, errors: errors)
+      end
 
-        api_error(status: 404, errors: 'Resource not found')
+      def unauthenticated!
+        api_error(status: 401, errors: 'Not Authenticated')
+      end
+
+      def not_found!
+        api_error(status: 404, errors: "Resource not found")
       end
 
       def unprocessable_entity!(errors = [])
         api_error(status: 422, errors: errors)
       end
 
-      def bad_request!(errors = [])
-        api_error(status: 400, errors: errors)
-      end
-
       def api_error(status: 500, errors: [])
         render json: ErrorSerializer.new(status, errors).as_json,
                status: status
       end
-
-      private
-
-      # HACK
-      def load_resource; end
 
       attr_reader :current_user
     end

@@ -1,8 +1,6 @@
 module Api
   module V1
-    class TokenSerializer < ApiBaseSerializer
-      type :token
-
+    class TokenSerializer < Api::V1::ApiBaseSerializer
       attributes :email, :token
 
       def email

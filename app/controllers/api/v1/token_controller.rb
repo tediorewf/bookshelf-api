@@ -1,6 +1,6 @@
 module Api
   module V1
-    class TokenController < ApiBaseController
+    class TokenController < Api::V1::ApiBaseController
       skip_before_action :authenticate_user!, only: :create
 
       def create
@@ -13,7 +13,7 @@ module Api
         end
       end
 
-      private
+      protected
 
       def load_resource
         case params[:action].to_sym
@@ -22,12 +22,14 @@ module Api
         end
       end
 
-      def default_token_filters
-        %i(email password)
-      end
+      private
 
       def create_token_params
         params.require(:user).permit(*default_token_filters)
+      end
+
+      def default_token_filters
+        %i(email password)
       end
 
       attr_reader :user

@@ -1,8 +1,6 @@
 module Api
   module V1
     class BorrowingSerializer < Api::V1::ApiBaseSerializer
-      type :borrowing
-
       attributes :book, :reader
 
       def book

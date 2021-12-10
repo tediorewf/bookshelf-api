@@ -14,28 +14,19 @@ module Validators
 
     def book_is_not_borrowed
       if book.borrowed?
-        borrowing.errors.add(
-          :book_id,
-          "book with book_id=#{book_id} is borrowed"
-        )
+        borrowing.errors.add(:book, 'must not be borrowed')
       end
     end
 
     def book_belongs_to_user
       unless user.books.exists?(book_id)
-        borrowing.errors.add(
-          :book_id,
-          "book with book_id=#{book_id} doesn't belong to user with user_id=#{user_id}"
-        )
+        borrowing.errors.add(:book, 'must belong to user')
       end
     end
 
     def reader_belongs_to_user
       unless user.readers.exists?(reader_id)
-        borrowing.errors.add(
-          :reader_id,
-          "reader with reader_id=#{reader_id} doesn't belong to user with user_id=#{user_id}"
-        )
+        borrowing.errors.add(:reader, 'must belong to user')
       end
     end
 
