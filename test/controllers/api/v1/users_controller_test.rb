@@ -63,8 +63,8 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not create user with too long password' do
     email = 'test@test.test'
-    password = 'very-long-password'*100
-    password_confirmation = 'very-long-password'*100
+    password = 'very-long-password'*10
+    password_confirmation = 'very-long-password'*10
     params = {
       user: {
         email: email,
