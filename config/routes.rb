@@ -6,11 +6,11 @@ Rails.application.routes.draw do
 
       resources :readers, except: %i(edit new)
 
-      resources :borrowings, except: %i(edit new)
+      resources :borrowings, except: %i(edit new update)
 
-      post :token, controller: :token, action: :create
+      post '/token', to: 'token#create'
 
-      post :users, controller: :users, action: :create
+      post '/users', to: 'users#create'
     end
   end
 end

@@ -24,16 +24,6 @@ module Api
                status: :ok
       end
 
-      def update
-        if borrowing.update(update_borrowing_params)
-          render jsonapi: borrowing,
-                 serializer: Api::V1::BorrowingSerializer,
-                 status: :created
-        else
-          unprocessable_entity!(borrowing.errors)
-        end
-      end
-
       def destroy
         if borrowing.destroy
           render status: :no_content
@@ -50,16 +40,12 @@ module Api
           @borrowings = paginate(current_user.borrowings)
         when :create
           @borrowing = current_user.borrowings.new(create_borrowing_params)
-        when :show, :update, :destroy
+        when :show, :destroy
           @borrowing = current_user.borrowings.find(params[:id])
         end
       end
 
       private
-
-      def update_borrowing_params
-        create_borrowing_params
-      end
 
       def create_borrowing_params
         params.require(:borrowing).permit(*default_borrowing_filters)
