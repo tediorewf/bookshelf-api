@@ -6,7 +6,7 @@ class Book < ApplicationRecord
   before_destroy :ensure_book_is_not_borrowed
 
   def borrowed?
-    user.borrowings.where(book_id: id).exists?
+    Borrowing.where(book_id: id).exists?
   end
 
   private

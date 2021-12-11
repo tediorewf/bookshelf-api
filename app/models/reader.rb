@@ -12,7 +12,7 @@ class Reader < ApplicationRecord
   normalize :name, with: :capitalize
 
   def borrower?
-    user.borrowings.where(reader_id: id).exists?
+    Borrowing.where(reader_id: id).exists?
   end
 
   private
