@@ -1,4 +1,4 @@
-name: Build and run tests
+name: CI
 
 on:
   push:
@@ -7,19 +7,18 @@ on:
       - main
 
 jobs:
-  test:
+  build_and_test:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7.4
           bundler-cache: true
-      - name: Install gems
-        run: |
-          bundle config set without development production
-          bundle install
+
       - name: Run tests
         env:
           RAILS_ENV: test
