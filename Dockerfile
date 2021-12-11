@@ -2,7 +2,7 @@ FROM ruby:2.7.4-alpine
 
 WORKDIR /usr/src/app
 
-RUN apk add --no-cache build-base postgresql-dev && \
+RUN apk add --no-cache build-base postgresql-dev tzdata && \
     bundle config set without development test
 
 COPY Gemfile Gemfile.lock ./
