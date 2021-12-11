@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user: one
+  user: michael
   book: one
-  reader: one
+  reader: jack
 
 two:
-  user: two
+  user: michael
   book: two
-  reader: two
+  reader: jack

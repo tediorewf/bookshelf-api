@@ -1,17 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  id: <%= reader_one_id %>
-  first_name: <%= reader_one_first_name %>
-  last_name: <%= reader_one_last_name %>
-  phone: <%= reader_one_phone %>
-  email: <%= reade_one_email %>
-  user_id: <%= user_one_id %>
+graham:
+  name: Graham Example
+  phone: 11111111111
+  email: graham@example.com
+  user: michael
 
-two:
-  id: <%= reader_two_id %>
-  first_name: <%= reader_two_first_name %>
-  last_name: <%= reader_two_last_name %>
-  phone: <%= reader_two_phone %>
-  email: <%= reader_two_email %>
-  user_id: <%= user_two_id %>
+jack:
+  name: Jack Example
+  phone: 22222222222
+  email: jack@example.com
+  user: michael
