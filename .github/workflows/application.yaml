@@ -80,6 +80,7 @@ jobs:
       DB_PORT: ${{ secrets.DB_PORT }}
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      GITHUB_RUN_NUMBER: ${{ github.run_number }}
     steps:
       - name: Deploy image
         uses: appleboy/ssh-action@master
