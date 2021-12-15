@@ -81,9 +81,7 @@ jobs:
     needs: deliver
     runs-on: ubuntu-20.04
     env:
-      REPOSITORY_OWNER: ${{ github.repository_owner }}
       LOWERCASE_REPOSITORY_NAME: ${{ needs.deliver.outputs.lowercase-repository-name }}
-      CR_PAT: ${{ secrets.CR_PAT }}
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       HOSTNAME: ${{ secrets.HOSTNAME }}
       DB_NAME: ${{ secrets.DB_NAME }}
@@ -99,9 +97,7 @@ jobs:
           key: ${{ secrets.KEY }}
           username: ${{ secrets.USERNAME }}
           envs: |
-            REPOSITORY_OWNER
             LOWERCASE_REPOSITORY_NAME
-            CR_PAT
             RAILS_MASTER_KEY
             HOSTNAME
             DB_NAME
@@ -111,7 +107,6 @@ jobs:
             DB_PASSWORD
             GITHUB_RUN_NUMBER
           script: |
-            echo $CR_PAT | docker login ghcr.io --username $REPOSITORY_OWNER --password-stdin
             docker stop bookshelf
             docker rm bookshelf
             docker run -d --name bookshelf --restart unless-stopped -p 3000:3000 \
