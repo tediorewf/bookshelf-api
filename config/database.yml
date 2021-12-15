@@ -6,7 +6,7 @@
 #
 default: &default
   adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
   timeout: 5000
 
 development:
@@ -41,9 +41,9 @@ production:
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  database: <%= ENV['BOOKSHELF_DATABASE_NAME'] %>
-  host: <%= ENV['BOOKSHELF_DATABASE_HOST'] %>
-  port: <%= ENV['BOOKSHELF_DATABASE_PORT'] %>
-  username: <%= ENV['BOOKSHELF_DATABASE_USERNAME'] %>
-  password: <%= ENV['BOOKSHELF_DATABASE_PASSWORD'] %>
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
+  database: <%= ENV['DB_NAME'] %>
+  host: <%= ENV['DB_HOST'] %>
+  port: <%= ENV['DB_PORT'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
