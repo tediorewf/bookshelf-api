@@ -34,8 +34,6 @@ jobs:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs: test
     runs-on: ubuntu-20.04
-    outputs:
-      lowercase-repository-name: ${{ steps.change-string-case.outputs.lowercase }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -59,20 +57,14 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
 
-      - name: Convert repository name to lowercase
-        id: change-string-case
-        uses: ASzc/change-string-case-action@v1
-        with:
-          string: ${{ github.repository }}
-
       - name: Build and push image
         uses: docker/build-push-action@v2
         with:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: |
-            ghcr.io/${{ steps.change-string-case.outputs.lowercase }}/app:2.0.${{ github.run_number }}
-            ghcr.io/${{ steps.change-string-case.outputs.lowercase }}/app:latest
+            ghcr.io/tediore-wf/bookshelf-api/app:2.0.${{ github.run_number }}
+            ghcr.io/tediore-wf/bookshelf-api/app:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
 
@@ -81,7 +73,6 @@ jobs:
     needs: deliver
     runs-on: ubuntu-20.04
     env:
-      LOWERCASE_REPOSITORY_NAME: ${{ needs.deliver.outputs.lowercase-repository-name }}
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       HOSTNAME: ${{ secrets.HOSTNAME }}
       DB_NAME: ${{ secrets.DB_NAME }}
@@ -97,7 +88,6 @@ jobs:
           key: ${{ secrets.KEY }}
           username: ${{ secrets.USERNAME }}
           envs: |
-            LOWERCASE_REPOSITORY_NAME
             RAILS_MASTER_KEY
             HOSTNAME
             DB_NAME
@@ -117,4 +107,4 @@ jobs:
               -e DB_PORT="$DB_PORT" \
               -e DB_USERNAME="$DB_USERNAME" \
               -e DB_PASSWORD="$DB_PASSWORD" \
-              "ghcr.io/$LOWERCASE_REPOSITORY_NAME/app:2.0.$GITHUB_RUN_NUMBER"
+              "ghcr.io/tediore-wf/bookshelf-api/app:2.0.$GITHUB_RUN_NUMBER"
