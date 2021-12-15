@@ -3,12 +3,7 @@ module Api
     class ApiBaseController < ApplicationController
       include ActionController::HttpAuthentication::Token
       include CustomErrors
-
-      DEFAULT_PAGE = 1.freeze
-      private_constant :DEFAULT_PAGE
-
-      DEFAULT_PER_PAGE = Rails.application.credentials.fetch(:default_per_page, 25).freeze
-      private_constant :DEFAULT_PER_PAGE
+      include PaginationParamsParser
 
       before_action :authenticate_user!
       before_action :load_resource
@@ -53,13 +48,9 @@ module Api
       def load_resource; end
 
       def paginate(resource)
-        resource.paginate(
-          page: params.fetch(:page, DEFAULT_PAGE),
-          per_page: [
-            params.fetch(:per_page, DEFAULT_PER_PAGE),
-            DEFAULT_PER_PAGE
-          ].min
-        )
+        page = parse_page(params[:page])
+        per_page = parse_per_page(params[:per_page])
+        resource.paginate(page: page, per_page: per_page)
       end
 
       # ATTENTION: expects paginated resource!
