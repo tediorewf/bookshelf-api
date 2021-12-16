@@ -1,3 +1,5 @@
+[![Application Workflow](https://github.com/tediore-wf/bookshelf-api/actions/workflows/application.yaml/badge.svg)](https://github.com/tediore-wf/bookshelf-api/actions/workflows/application.yaml)
+
 # Bookshelf API
 
 Backend for Bookshelf project
