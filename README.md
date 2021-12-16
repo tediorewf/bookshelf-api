@@ -28,7 +28,7 @@ bundler --version
 git clone https://github.com/tediore-wf/bookshelf-api.git
 ```
 
-#### 2. Move to project the directory
+#### 2. Move to the project directory
 
 ```bash
 cd bookshelf-api
