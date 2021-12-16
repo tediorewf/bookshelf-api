@@ -40,10 +40,10 @@ cd bookshelf-api
 bundle install
 ```
 
-#### 4. Setup database
+#### 4. Prepare the database
 
 ```bash
-bundle exec rake db:setup
+bundle exec rake db:prepare
 ```
 
 #### 5. Run Rails server
