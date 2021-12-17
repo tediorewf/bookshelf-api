@@ -96,9 +96,9 @@ jobs:
           username: ${{ secrets.USERNAME }}
           envs: RAILS_MASTER_KEY,HOSTNAME,DB_NAME,DB_HOST,DB_PORT,DB_USERNAME,DB_PASSWORD,GITHUB_RUN_NUMBER
           script: |
-            docker stop bookshelf
-            docker rm bookshelf
-            docker run -d --name bookshelf --restart unless-stopped -p 3000:3000 \
+            docker stop bookshelf-api
+            docker rm bookshelf-api
+            docker run -d --name bookshelf-api --restart unless-stopped -p 3000:3000 \
               -e RAILS_MASTER_KEY="$RAILS_MASTER_KEY" \
               -e HOSTNAME="$HOSTNAME" \
               -e DB_NAME="$DB_NAME" \
