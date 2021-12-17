@@ -6,7 +6,7 @@ module Api
       def create
         if user&.authenticate(create_token_params[:password])
           render jsonapi: user,
-                 serializer: Api::V1::TokenSerializer,
+                 serializer: Api::V1::UserSerializer,
                  status: :created
         else
           unprocessable_entity!('User with provided credentials does not exist')
