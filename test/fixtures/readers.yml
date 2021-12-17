@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-graham:
-  name: Graham Example
+one:
+  name: One
   phone: 11111111111
-  email: graham@example.com
-  user: michael
+  email: one@example.com
+  user: one
 
-jack:
-  name: Jack Example
+two:
+  name: Two
   phone: 22222222222
-  email: jack@example.com
-  user: michael
+  email: two@example.com
+  user: two

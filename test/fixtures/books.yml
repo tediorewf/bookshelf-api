@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  author: Author One
-  title: Book One
-  user: michael
+  author: One
+  title: One
+  user: one
 
 two:
-  author: Author Two
-  title: Book Two
-  user: michael
+  author: Two
+  title: Two
+  user: two
