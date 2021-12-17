@@ -1,4 +1,6 @@
 module PaginationParamsParser
+  extend ActiveSupport::Concern
+
   DEFAULT_PAGE = 1.freeze
   MAX_PER_PAGE = Rails.application.config.x.pagination.max_per_page.freeze
 
