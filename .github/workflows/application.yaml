@@ -80,7 +80,6 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-      HOSTNAME: ${{ secrets.HOSTNAME }}
       DB_NAME: ${{ secrets.DB_NAME }}
       DB_HOST: ${{ secrets.DB_HOST }}
       DB_PORT: ${{ secrets.DB_PORT }}
@@ -94,13 +93,12 @@ jobs:
           host: ${{ secrets.HOST }}
           key: ${{ secrets.KEY }}
           username: ${{ secrets.USERNAME }}
-          envs: RAILS_MASTER_KEY,HOSTNAME,DB_NAME,DB_HOST,DB_PORT,DB_USERNAME,DB_PASSWORD,GITHUB_RUN_NUMBER
+          envs: RAILS_MASTER_KEY,DB_NAME,DB_HOST,DB_PORT,DB_USERNAME,DB_PASSWORD,GITHUB_RUN_NUMBER
           script: |
             docker stop bookshelf-api
             docker rm bookshelf-api
             docker run -d --name bookshelf-api --restart unless-stopped -p 3000:3000 \
               -e RAILS_MASTER_KEY="$RAILS_MASTER_KEY" \
-              -e HOSTNAME="$HOSTNAME" \
               -e DB_NAME="$DB_NAME" \
               -e DB_HOST="$DB_HOST" \
               -e DB_PORT="$DB_PORT" \
