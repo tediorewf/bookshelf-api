@@ -2,7 +2,7 @@
 
 # Bookshelf API
 
-Backend for Bookshelf project
+Server-side application for Bookshelf project
 
 ## Prerequisites
 
