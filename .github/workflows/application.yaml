@@ -69,7 +69,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: |
-            ghcr.io/tediore-wf/bookshelf-api/app:2.0.${{ github.run_number }}
+            ghcr.io/tediore-wf/bookshelf-api/app:1.0.${{ github.run_number }}
             ghcr.io/tediore-wf/bookshelf-api/app:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
@@ -104,4 +104,4 @@ jobs:
               -e DB_PORT="$DB_PORT" \
               -e DB_USERNAME="$DB_USERNAME" \
               -e DB_PASSWORD="$DB_PASSWORD" \
-              "ghcr.io/tediore-wf/bookshelf-api/app:2.0.$GITHUB_RUN_NUMBER"
+              "ghcr.io/tediore-wf/bookshelf-api/app:1.0.$GITHUB_RUN_NUMBER"
