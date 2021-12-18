@@ -14,3 +14,5 @@ ENV RAILS_ENV production
 CMD ["rails", "s", "-b", "0.0.0.0"]
 
 EXPOSE 3000
+
+LABEL org.opencontainers.image.description="Server-side application for Bookshelf project."
