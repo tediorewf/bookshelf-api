@@ -5,7 +5,7 @@ class TokenService
   class << self
     def encode(payload)
       encode!(payload)
-    rescue  # because it has "dangerous" version
+    rescue JWT::EncodeError
       nil
     end
 
@@ -15,7 +15,7 @@ class TokenService
 
     def decode(token)
       decode!(token)
-    rescue  # because it has "dangerous" version
+    rescue JWT::DecodeError
       nil
     end
 
