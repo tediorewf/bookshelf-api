@@ -1,6 +1,8 @@
 module Api
   module V1
     class ReadersController < Api::V1::ApiBaseController
+      before_action :load_resource
+
       def index
         render jsonapi: readers,
                each_serializer: Api::V1::ReaderSerializer,
@@ -42,7 +44,7 @@ module Api
         end
       end
 
-      protected
+      private
 
       def load_resource
         case params[:action].to_sym
@@ -54,8 +56,6 @@ module Api
           @reader = current_user.readers.find(params[:id])
         end
       end
-
-      private
 
       def update_reader_params
         create_reader_params

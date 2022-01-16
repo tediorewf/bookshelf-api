@@ -1,6 +1,8 @@
 module Api
   module V1
     class BooksController < Api::V1::ApiBaseController
+      before_action :load_resource
+
       def index
         render jsonapi: books,
                each_serializer: Api::V1::BookSerializer,
@@ -42,7 +44,7 @@ module Api
         end
       end
 
-      protected
+      private
 
       def load_resource
         case params[:action].to_sym
@@ -54,8 +56,6 @@ module Api
           @book = current_user.books.find(params[:id])
         end
       end
-
-      private
 
       def update_book_params
         create_book_params

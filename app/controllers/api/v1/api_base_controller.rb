@@ -6,7 +6,6 @@ module Api
       include PaginationParamsParser
 
       before_action :authenticate_user!
-      before_action :load_resource
 
       rescue_from ActionController::ParameterMissing do
         api_error(status: 400, errors: 'Invalid parameters')
@@ -43,9 +42,6 @@ module Api
           nil
         end
       end
-
-      # HACK
-      def load_resource; end
 
       def paginate(resource)
         page = parse_page(params[:page])

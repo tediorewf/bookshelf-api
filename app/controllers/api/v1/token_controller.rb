@@ -2,6 +2,7 @@ module Api
   module V1
     class TokenController < Api::V1::ApiBaseController
       skip_before_action :authenticate_user!, only: :create
+      before_action :load_resource
 
       def create
         if user&.authenticate(create_token_params[:password])
@@ -13,7 +14,7 @@ module Api
         end
       end
 
-      protected
+      private
 
       def load_resource
         case params[:action].to_sym
@@ -21,8 +22,6 @@ module Api
           @user = User.find_by(email: create_token_params[:email])
         end
       end
-
-      private
 
       def create_token_params
         params.require(:user).permit(*default_token_filters)
